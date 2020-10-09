@@ -76,7 +76,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 498}
   m_MaxSize: {x: 14004, y: 14048}
   vertical: 0
-  controlID: 87
+  controlID: 101
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 498}
   m_MaxSize: {x: 10002, y: 14048}
   vertical: 1
-  controlID: 88
+  controlID: 102
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 224}
   m_MaxSize: {x: 8006, y: 4024}
   vertical: 0
-  controlID: 89
+  controlID: 103
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 10546
+  m_LastSelectedObjectID: 10772
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -493,20 +493,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Behaviors
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 68
   m_LastFolders:
-  - Assets/Scripts/Behaviors
+  - Assets
   m_LastFoldersGridSize: 68
-  m_LastProjectPath: C:\Users\thela\OneDrive\Documentos\Unity\JAM
+  m_LastProjectPath: C:\Users\thela\OneDrive\Documentos\JAM
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 16270000
-    m_LastClickedID: 10006
-    m_ExpandedIDs: 000000000c260000ae26000000ca9a3b
+    m_SelectedIDs: 0e260000
+    m_LastClickedID: 9742
+    m_ExpandedIDs: 000000000e260000b026000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -534,7 +534,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000000c260000ae260000
+    m_ExpandedIDs: 000000000e260000b0260000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000222a0000e6270000c2290000c4290000443b0000c44e0000ea270000da2a000046300000a2260000ba280000147200007c320100b0270000de260000642e00008a290000d028000000000000d0290000f22900002a290000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -653,9 +653,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 32290000
-      m_LastClickedID: 10546
-      m_ExpandedIDs: d4fbffffaa280000f028000044290000742900008e290000f2290000
+      m_SelectedIDs: 142a0000
+      m_LastClickedID: 10772
+      m_ExpandedIDs: d4fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -710,9 +710,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1.8321676, y: -0.48513937, z: -9.907606}
+    m_Target: {x: 5.247927, y: 4.0462885, z: -10.084602}
     speed: 2
-    m_Value: {x: 1.8321676, y: -0.48513937, z: -9.907606}
+    m_Value: {x: 5.247927, y: 4.0462885, z: -10.084602}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -744,9 +744,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 12.880877
+    m_Target: 30.7984
     speed: 2
-    m_Value: 12.880877
+    m_Value: 30.7984
   m_Ortho:
     m_Target: 1
     speed: 2

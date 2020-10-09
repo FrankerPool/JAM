@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour{
     //estas se encargan de gestionar el tiempo de las cuentas
     public float timeLeft = 3.0f;
     public float timeGame = 30.0f;
-    private bool go = false;
     
     //ahora siguen los metodos que nos muestran los menus y todo eso
     //este metodo muestra la pantalla de menu
@@ -65,37 +64,47 @@ public class GameManager : MonoBehaviour{
         canvasPause.enabled = false;
     }
     //este metodo muestra el conteo de 3,2,1,go!
-    public void goTimer(){
+    IEnumerator goTimerT(){
         canvasMenu.enabled = false;
         canvasConfirm.enabled = false;
         canvasInGame.enabled = true;
-        timeLeft -= Time.deltaTime;
-        regresiveTxt.text = (timeLeft).ToString("0");
-        if (timeLeft < 0){
-            regresiveTxt.enabled = false;
-            showTimeGame();
-        }
+        yield return new WaitForSeconds(1.0f);
+        regresiveTxt.text = "3";
+        yield return new WaitForSeconds(1.0f);
+        regresiveTxt.text = "2";
+        yield return new WaitForSeconds(1.0f);
+        regresiveTxt.text = "1";
+        yield return new WaitForSeconds(1.0f);
+        regresiveTxt.text = "Go!";
+        yield return new WaitForSeconds(0.5f);
+        regresiveTxt.enabled = false;
+        InGame();
+        showTimeGame();
+    }
+    public void goTimer(){
+        StartCoroutine(goTimerT());
+        // canvasMenu.enabled = false;
+        // canvasConfirm.enabled = false;
+        // canvasInGame.enabled = true;
+        // timeLeft -= Time.deltaTime;
+        // regresiveTxt.text = (timeLeft).ToString("0");
+        // if (timeLeft < 0){
+        //     regresiveTxt.enabled = false;
+        //     showTimeGame();
+        // }
     }
     //este metodo cuenta de 60 y resta hasta llegar a 0
     public void showTimeGame(){
-        InGame();
-        cronomeTxt.enabled = true;
-        timeGame -= Time.deltaTime;
-        cronomeTxt.text = (timeGame).ToString("0");
-        if (timeGame < 0){
-            cronomeTxt.enabled = false;
-            gameOver();
+         if(currentGameState == GameState.inGame){
+            cronomeTxt.enabled = true;
+            timeGame -= Time.deltaTime;
+            cronomeTxt.text = (timeGame).ToString("0");
+                if (timeGame < 0){
+                cronomeTxt.enabled = false;
+                gameOver();
+            }
         }
     }
-    //este metodo cambia el estadp de go!
-    public void goGame(){
-        go = true;
-    }
-    //este metodo cambia el estado de go! para reiniciar la partida
-    public void noGo(){
-        go = false;
-    }
-
     //este metodo cambia el estado enum del juego a pause
     public void InPause(){
         setGameState(GameState.GamePause);
@@ -132,8 +141,6 @@ public class GameManager : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
-        if(go == true){
-            goTimer();
-        }
+        showTimeGame();
     }
 }

@@ -11,9 +11,10 @@ public class PlayerController : MonoBehaviour{
         gameManagerInstancia = FindObjectOfType<GameManager>();
     }
 
-    //metod que gestiona el movimiento del jugador
+    //metod que gestiona el movimiento del jugador 10/09/20 aun este se mueve cuando esta en pausa se tiene que revisar a mas tardar para ma;ana si no seguir adelante si toma mas de un dia y dejar para luego
     public void movPc(){
         if(gameManagerInstancia.currentGameState == GameState.inGame){
+            print("en juego");
             GetComponent<Rigidbody2D>().velocity = Vector2.up * speed;
             Vector2 movement = Vector2.zero;
             if(Input.GetKeyDown(KeyCode.A)){
@@ -27,6 +28,8 @@ public class PlayerController : MonoBehaviour{
                     transform.position = new Vector2(transform.position.x + 1.3f, transform.position.y);
                 }
             }
+        }else{
+            print("nose");
         }
     }
 
@@ -45,6 +48,8 @@ public class PlayerController : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
-        movPc();
+        if(gameManagerInstancia.currentGameState == GameState.inGame){
+            movPc();
+        }
     }
 }
