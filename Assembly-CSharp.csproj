@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Utilities\Intro.cs" />
     <Compile Include="Assets\Scripts\Utilities\Loader.cs" />
     <Compile Include="Assets\Scripts\Utilities\LoaderCallBack.cs" />
+    <Compile Include="Assets\Scripts\Utilities\ManagerAudio.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/thela/OneDrive/Documentos/JAM/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

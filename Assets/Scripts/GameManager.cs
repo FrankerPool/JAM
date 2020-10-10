@@ -19,8 +19,6 @@ public class GameManager : MonoBehaviour{
     public float timeGame = 30.0f;
     //esta variable se encarga de acceder alos metodos del jugador
     PlayerController playerControllerInstancia;
-    //para los recursos de sonido
-    public AudioSource zona1,zona2,zona3,menu;
     //estas contiene ambos jugadores
     public GameObject playerGirl,playerBoy;
     
