@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour{
     public GameObject playerGirl,playerBoy;
     //para ingresar al metod de sonido
     private ManagerAudio managerAudioInstancia;
+    //
+    private Obstacule obstaculeInstancia;
     //ahora siguen los metodos que nos muestran los menus y todo eso
     //este metodo muestra la pantalla de menu
     public void showMenu(){
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour{
         canvasGameover.enabled = false;
         canvasMenu.enabled = false;
         canvasPause.enabled = false;
+        managerAudioInstancia.zone1Soung();
     }
     //este metodo muestra la pantalla en game over
     public void gameOverScreen(){
@@ -71,6 +74,7 @@ public class GameManager : MonoBehaviour{
     //esto reinica todo como al principio
     public void playAgain(){
         managerAudioInstancia.pushButton();
+        obstaculeInstancia.restarObject();
         playerControllerInstancia.again();
     }
     public void getPoints(){
@@ -122,23 +126,23 @@ public class GameManager : MonoBehaviour{
     }
     //este metodo cambia el estado enum del juego a pause
     public void InPause(){
-        managerAudioInstancia.pushButton();
         setGameState(GameState.GamePause);
     }
     //este metodo cambia el estado a ingame
     public void InGame(){
-        managerAudioInstancia.pushButton();
         setGameState(GameState.inGame);
     }
     //este metodo cambia el estado del juego a menu
     public void Menu(){
-        managerAudioInstancia.pushButton();
         setGameState(GameState.menu);
     }
     //este metodo cambia el estado del juego a game over
     public void GameOver(){
-        managerAudioInstancia.pushButton();
         setGameState(GameState.GameOver);
+    }
+    //metod para el sonido del boton
+    public void click(){
+        managerAudioInstancia.pushButton();
     }
     //metod para seleccionar al chico
     public void chooceGirl(){
@@ -155,6 +159,7 @@ public class GameManager : MonoBehaviour{
     //metodo para seleccionar a la chica
     //al iniciar el juego es cambiado a en menu
     void Start(){
+        obstaculeInstancia = FindObjectOfType<Obstacule>();
         managerAudioInstancia = FindObjectOfType<ManagerAudio>();
         playerControllerInstancia = FindObjectOfType<PlayerController>();
         setGameState(GameState.menu);

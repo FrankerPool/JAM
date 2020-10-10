@@ -30,7 +30,12 @@ public class Obstacule : MonoBehaviour{
     //en el segundo caso destruye el objeto al entrar en contacto en el primero al esperar certo tiempo
     public void destroyObject(){
         //Destroy(this.gameObject,1f);
-        Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
+        // Destroy(this.gameObject);
+    }
+    //para activar de nuevo todos los objetos
+    public void restarObject(){
+        this.gameObject.SetActive(true);
     }
 
     public void ghostBox(float efectTime){

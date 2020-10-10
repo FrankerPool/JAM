@@ -8,7 +8,15 @@ public class ManagerAudio : MonoBehaviour{
     //variable para poder comrpbar que musica poner
     public string nameBar;
     void Start(){
+        this.gameObject.name = nameBar;
         menuSong();
+    }
+    //cancion del primer nivel
+    public void zone1Soung(){
+        menuSound.Stop();
+        zona2Sound.Stop();
+        zona1Sound.Play();
+        zona3Sound.Stop();
     }
     //metod para la musica del menu
     public void menuSong(){
@@ -25,19 +33,22 @@ public class ManagerAudio : MonoBehaviour{
     //checamos contra que colliciona
     void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag == "Player"){
-            if(other.gameObject.name == "zona2"){
+            print("collider");
+            if(this.gameObject.name == "zona2"){
+                print("cambio 2");
                 zona2Sound.Play();
                 zona1Sound.Stop();
                 zona3Sound.Stop();
                 menuSound.Stop();
             }
-            if(other.gameObject.name == "zona3"){
+            if(this.gameObject.name == "zona3"){
+                print("cambio 3");
                 zona3Sound.Play();
                 zona1Sound.Stop();
                 zona2Sound.Stop();
                 menuSound.Stop();
             }
-            if(other.gameObject.name == "final"){
+            if(this.gameObject.name == "final"){
                 gameOverSound.Play();
                 zona2Sound.Play();
                 zona1Sound.Stop();
