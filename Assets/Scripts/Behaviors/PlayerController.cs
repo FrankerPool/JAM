@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour{
     private Vector3 startPosition;
     //esta instancia sirve para acceder a los metodos de los boosters
     private BoosterScript boosterScriptInstancia;
+    //Esta variable sirve para acceder al animator del jugador para gersionar las animaciones
+    private Animator animator;
     //aqui buscamos el objeto de tipo gamemanager para poder inicializarlo
     void Start(){
         boosterScriptInstancia = FindObjectOfType<BoosterScript>();
@@ -37,25 +39,43 @@ public class PlayerController : MonoBehaviour{
     //porque ? el awake despierta antes que cualquier metodo
     void Awake(){
         startPosition = this.transform.position;  
+        animator = GetComponent<Animator>();
     }
     //metod que gestiona el movimiento del jugador 10/09/20 aun este se mueve cuando esta en pausa se tiene que revisar a mas tardar para ma;ana si no seguir adelante si toma mas de un dia y dejar para luego
     public void movPc(){
         if(gameManagerInstancia.currentGameState == GameState.inGame){
             print("en juego");
-            // GetComponent<Rigidbody2D>().velocity = Vector2.up * speed;
-            transform.Translate (Vector3.up *1 * speed * Time.deltaTime);
-//            Vector2 movement = Vector2.zero;
+            GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x,speed);
+//            GetComponent<Rigidbody2D>().velocity = Vector2.up * speed;
+            // transform.Translate (Vector3.up *1 * speed * Time.deltaTime);
+            Vector2 movement = Vector2.zero;
             if(Input.GetKeyDown(KeyCode.A)){
                 if(transform.position.x > -1.3f){
                     transform.position = new Vector2(transform.position.x - 1.3f, transform.position.y);
+                    animator.SetBool("left",true);
+                    animator.SetBool("right",false);
+                    animator.SetBool("midle",false);
                 }
             }
 
             if(Input.GetKeyDown(KeyCode.D)){
                 if(transform.position.x < 1.3f){
+                    animator.SetBool("right",true);
+                    animator.SetBool("midle",false);
+                    animator.SetBool("left",false);
                     transform.position = new Vector2(transform.position.x + 1.3f, transform.position.y);
                 }
             }
+
+            if(transform.position.x == 0.0f){
+                animator.SetBool("midle",true);
+                animator.SetBool("left",false);
+                animator.SetBool("right",false);
+            }
+
+            animator.SetFloat("speed",Mathf.Abs(this.GetComponent<Rigidbody2D>().velocity.y));
+        }else{
+            GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x,0);
         }
     }
 
@@ -76,8 +96,19 @@ public class PlayerController : MonoBehaviour{
         }
     }
 
+    //comprobar si esta vivo
+    public void comprobateLifes(){
+        if(lifes == 0){
+            lose();
+        }
+    }
+    //gameOver
+    public void lose(){
+        gameManagerInstancia.GameOver();
+    }
     // Update is called once per frame
     void Update(){
+        comprobateLifes();
         showLifes();
         movPc();
     }
@@ -89,9 +120,6 @@ public class PlayerController : MonoBehaviour{
     //en caso de chocar y tener aun mas de 0 vidas restara en caso contrario se muere
     void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag == "Dead"){
-            if(lifes == 0){
-                gameManagerInstancia.GameOver();
-            }
             restLife();
         }
         if(other.gameObject.tag == "Booster"){
@@ -99,11 +127,11 @@ public class PlayerController : MonoBehaviour{
             if(other.gameObject.name == "bota"){
                 //no mucho que explicar ya estas comentados en su respectiva clase xd
                 print("si bota");
-                boosterScriptInstancia.boosterVelocity(9,5.0f,this.transform,1);
+                boosterScriptInstancia.boosterVelocity(2.0f,5.0f,this.GetComponent<Rigidbody2D>(),speed);
             }
             if(other.gameObject.name == "cruz"){
                 //lo mismo solo que en este caso this.gameobject ser refiere a este objeto
-                boosterScriptInstancia.boosterInvisible(2.0f,this.gameObject);
+                boosterScriptInstancia.boosterInvisible(4.0f,this.gameObject);
             }
             if(other.gameObject.name == ""){
                 //no recuerdo este xd pero creo que ya lo hize sin querer

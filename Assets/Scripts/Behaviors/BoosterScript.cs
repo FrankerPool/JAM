@@ -10,14 +10,14 @@ public class BoosterScript : MonoBehaviour{
         this.gameObject.name = boosterName;
     }
     //este metodo se encarga de gestionar el booster para correr mas rapdido por cierto tiempo
-    public void boosterVelocity(int extraSpeed, float timeBooster,Transform transformVeloci,int velocityO){
+    public void boosterVelocity(float extraSpeed, float timeBooster,Rigidbody2D transformVeloci,float velocityO){
         StartCoroutine(boosterTimerVel(extraSpeed,timeBooster,transformVeloci,velocityO));
     }
     //Este metodo se encarga de esperar algunos segundos para poder cambiar la velocidad por ese periodo de tiempo
-    IEnumerator boosterTimerVel(int extraSpeed, float timeBooster, Transform transformVeloci,int velocityO){
-        transformVeloci.Translate (Vector3.up * 1 * (velocityO + extraSpeed) * Time.deltaTime);
+    IEnumerator boosterTimerVel(float extraSpeed, float timeBooster, Rigidbody2D transformVeloci,float velocityO){
+        transformVeloci.velocity = Vector2.up * (velocityO + extraSpeed);
         yield return new WaitForSeconds(timeBooster);
-        transformVeloci.Translate (Vector3.up * 1 * (velocityO) * Time.deltaTime);
+        transformVeloci.velocity = Vector2.up * (velocityO);
         print("cambio");
     }
     //Este metodo se encarga de ejecutar el metodo verdader el boostertimervel

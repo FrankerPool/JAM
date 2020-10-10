@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour{
     PlayerController playerControllerInstancia;
     //para los recursos de sonido
     public AudioSource zona1,zona2,zona3,menu;
+    //estas contiene ambos jugadores
+    public GameObject playerGirl,playerBoy;
     
     //ahora siguen los metodos que nos muestran los menus y todo eso
     //este metodo muestra la pantalla de menu
@@ -45,7 +47,7 @@ public class GameManager : MonoBehaviour{
         canvasPause.enabled = false;
     }
     //este metodo muestra la pantalla en game over
-    public void gameOver(){
+    public void gameOverScreen(){
         canvasGameover.enabled = true;
         canvasInGame.enabled = false;
         canvasMenu.enabled = false;
@@ -92,8 +94,10 @@ public class GameManager : MonoBehaviour{
         InGame();
         showTimeGame();
     }
+    //llamo a la corutina en este metodo
     public void goTimer(){
         StartCoroutine(goTimerT());
+        //esto si funciona pero su uso es muchoa mas complejo de lo que parece
         // canvasMenu.enabled = false;
         // canvasConfirm.enabled = false;
         // canvasInGame.enabled = true;
@@ -112,7 +116,7 @@ public class GameManager : MonoBehaviour{
             cronomeTxt.text = (timeGame).ToString("0");
                 if (timeGame < 0){
                 cronomeTxt.enabled = false;
-                gameOver();
+                GameOver();
             }
         }
     }
@@ -132,10 +136,22 @@ public class GameManager : MonoBehaviour{
     public void GameOver(){
         setGameState(GameState.GameOver);
     }
+    //metod para seleccionar al chico
+    public void chooceGirl(){
+        playerGirl.gameObject.SetActive(true);
+        playerBoy.gameObject.SetActive(false);
+    }
+
+    public void chooceBoy(){
+        playerBoy.gameObject.SetActive(true);
+        playerGirl.gameObject.SetActive(false);
+    }
+    //metodo para seleccionar a la chica
     //al iniciar el juego es cambiado a en menu
     void Start(){
         playerControllerInstancia = FindObjectOfType<PlayerController>();
         setGameState(GameState.menu);
+        chooceBoy();
     }
     //cambia los estados del juego
     public void setGameState(GameState newGameState){
@@ -144,7 +160,7 @@ public class GameManager : MonoBehaviour{
         }else if(newGameState == GameState.inGame){
             inGame();
         }else if(newGameState == GameState.GameOver){
-            gameOver();
+            gameOverScreen();
         }else if(newGameState == GameState.GamePause){
             inPause();
         }
