@@ -57,7 +57,6 @@ public class PlayerController : MonoBehaviour{
                     animator.SetBool("midle",false);
                 }
             }
-
             if(Input.GetKeyDown(KeyCode.D)){
                 if(transform.position.x < 1.3f){
                     animator.SetBool("right",true);
@@ -66,13 +65,11 @@ public class PlayerController : MonoBehaviour{
                     transform.position = new Vector2(transform.position.x + 1.3f, transform.position.y);
                 }
             }
-
             if(transform.position.x == 0.0f){
                 animator.SetBool("midle",true);
                 animator.SetBool("left",false);
                 animator.SetBool("right",false);
             }
-
             animator.SetFloat("speed",Mathf.Abs(this.GetComponent<Rigidbody2D>().velocity.y));
         }else{
             GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x,0);
