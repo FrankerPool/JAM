@@ -597,7 +597,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 275077051}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1778892650}
+        m_MethodName: playAgain
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &275077051
@@ -1310,9 +1321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858422c985dddc74e8728a5af08db7f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minCamaraPo: {x: 0, y: 0}
-  maxCamaraPo: {x: 0, y: 20}
-  smoonthTime: 0.15
+  offset: 3
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -4411,7 +4420,7 @@ GameObject:
   - component: {fileID: 1607560931}
   - component: {fileID: 1607560930}
   m_Layer: 5
-  m_Name: Text
+  m_Name: TextLifes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4623,6 +4632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  lifesTxt: {fileID: 1607560930}
 --- !u!1 &1657130402
 GameObject:
   m_ObjectHideFlags: 0
@@ -4635,7 +4645,7 @@ GameObject:
   - component: {fileID: 1657130405}
   - component: {fileID: 1657130404}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageLifes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4983,7 +4993,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1796945928}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1778892650}
+        m_MethodName: InGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1796945928

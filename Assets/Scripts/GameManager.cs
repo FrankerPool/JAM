@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour{
     //estas se encargan de gestionar el tiempo de las cuentas
     public float timeLeft = 3.0f;
     public float timeGame = 30.0f;
+    //esta variable se encarga de acceder alos metodos del jugador
+    PlayerController playerControllerInstancia;
     
     //ahora siguen los metodos que nos muestran los menus y todo eso
     //este metodo muestra la pantalla de menu
@@ -62,6 +64,10 @@ public class GameManager : MonoBehaviour{
         canvasInGame.enabled = false;
         canvasGameover.enabled = false;
         canvasPause.enabled = false;
+    }
+    //esto reinica todo como al principio
+    public void playAgain(){
+        playerControllerInstancia.again();
     }
     //este metodo muestra el conteo de 3,2,1,go!
     IEnumerator goTimerT(){
@@ -123,6 +129,7 @@ public class GameManager : MonoBehaviour{
     }
     //al iniciar el juego es cambiado a en menu
     void Start(){
+        playerControllerInstancia = FindObjectOfType<PlayerController>();
         setGameState(GameState.menu);
     }
     //cambia los estados del juego

@@ -60,7 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Behaviors\BoosterScript.cs" />
     <Compile Include="Assets\Scripts\Behaviors\CameraFollower.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\Obstacule.cs" />
     <Compile Include="Assets\Scripts\Behaviors\PlayerController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

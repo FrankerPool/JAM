@@ -1,21 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour{
     //variable encargada de gestionar la velocidad del jugador
     public float speed = 0.1f;
+    //esta variable contiene el numero vidas
+    private int lifes = 5;
     //instancia de gamemanager para acceder a los metodos
     private GameManager gameManagerInstancia;
+    //texto que mostrara las vidas del jugador
+    public Text lifesTxt;
+    //Utilizamos un vector3 para obetener la posicion inicial
+    private Vector3 startPosition;
+    //aqui buscamos el objeto de tipo gamemanager para poder inicializarlo
     void Start(){
         gameManagerInstancia = FindObjectOfType<GameManager>();
     }
-
+    //este metodo se encarga de cuando el jugador muere regresarlo al principio
+    public void dead(){
+        gameManagerInstancia.GameOver();
+        this.transform.position = startPosition;
+    }
+    public void again(){
+        gameManagerInstancia.Menu();
+        this.transform.position = startPosition;
+    }
+    public void restLife(){
+        this.lifes -= 1;
+        print(lifes);
+    }
+    //porque ? el awake despierta antes que cualquier metodo
+    void Awake(){
+        startPosition = this.transform.position;  
+    }
     //metod que gestiona el movimiento del jugador 10/09/20 aun este se mueve cuando esta en pausa se tiene que revisar a mas tardar para ma;ana si no seguir adelante si toma mas de un dia y dejar para luego
     public void movPc(){
         if(gameManagerInstancia.currentGameState == GameState.inGame){
             print("en juego");
-            GetComponent<Rigidbody2D>().velocity = Vector2.up * speed;
+            // GetComponent<Rigidbody2D>().velocity = Vector2.up * speed;
+            transform.Translate (Vector3.up *1 * speed * Time.deltaTime);
             Vector2 movement = Vector2.zero;
             if(Input.GetKeyDown(KeyCode.A)){
                 if(transform.position.x > -1.3f){
@@ -28,11 +53,13 @@ public class PlayerController : MonoBehaviour{
                     transform.position = new Vector2(transform.position.x + 1.3f, transform.position.y);
                 }
             }
-        }else{
-            print("nose");
         }
     }
 
+    //este metodo sirve para mostrar las vidas del jugador
+    public void showLifes(){
+        lifesTxt.text = lifes.ToString();
+    }
     //aun estoy probando esto /*10/10/20*/
     public void movMovil(){
         if(gameManagerInstancia.currentGameState == GameState.inGame){
@@ -48,8 +75,16 @@ public class PlayerController : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
-        if(gameManagerInstancia.currentGameState == GameState.inGame){
-            movPc();
+        movPc();
+    }
+
+    //en caso de chocar y tener aun mas de 0 vidas restara en caso contrario se muere
+    void OnCollisionEnter2D(Collision2D other){
+        if(other.gameObject.tag == "Dead"){
+            if(lifes == 0){
+                gameManagerInstancia.GameOver();
+            }
+            restLife();
         }
     }
 }
