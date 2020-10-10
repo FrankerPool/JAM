@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour{
     public float timeGame = 30.0f;
     //esta variable se encarga de acceder alos metodos del jugador
     PlayerController playerControllerInstancia;
+    //para los recursos de sonido
+    public AudioSource zona1,zona2,zona3,menu;
     
     //ahora siguen los metodos que nos muestran los menus y todo eso
     //este metodo muestra la pantalla de menu

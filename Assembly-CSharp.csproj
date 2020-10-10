@@ -65,6 +65,9 @@
     <Compile Include="Assets\Scripts\Behaviors\Obstacule.cs" />
     <Compile Include="Assets\Scripts\Behaviors\PlayerController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Intro.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Loader.cs" />
+    <Compile Include="Assets\Scripts\Utilities\LoaderCallBack.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/thela/OneDrive/Documentos/JAM/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
