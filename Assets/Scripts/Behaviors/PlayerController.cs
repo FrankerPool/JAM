@@ -14,8 +14,11 @@ public class PlayerController : MonoBehaviour{
     public Text lifesTxt;
     //Utilizamos un vector3 para obetener la posicion inicial
     private Vector3 startPosition;
+    //esta instancia sirve para acceder a los metodos de los boosters
+    private BoosterScript boosterScriptInstancia;
     //aqui buscamos el objeto de tipo gamemanager para poder inicializarlo
     void Start(){
+        boosterScriptInstancia = FindObjectOfType<BoosterScript>();
         gameManagerInstancia = FindObjectOfType<GameManager>();
     }
     //este metodo se encarga de cuando el jugador muere regresarlo al principio
@@ -41,7 +44,7 @@ public class PlayerController : MonoBehaviour{
             print("en juego");
             // GetComponent<Rigidbody2D>().velocity = Vector2.up * speed;
             transform.Translate (Vector3.up *1 * speed * Time.deltaTime);
-            Vector2 movement = Vector2.zero;
+//            Vector2 movement = Vector2.zero;
             if(Input.GetKeyDown(KeyCode.A)){
                 if(transform.position.x > -1.3f){
                     transform.position = new Vector2(transform.position.x - 1.3f, transform.position.y);
@@ -75,16 +78,36 @@ public class PlayerController : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
+        showLifes();
         movPc();
     }
-
+    //para obtener la distancia rrecorrida
+    public float getDistanceR(){
+        float travelerDistance = Vector2.Distance(new Vector2(0,startPosition.y),new Vector2(0,this.transform.position.y));
+        return travelerDistance;
+    }
     //en caso de chocar y tener aun mas de 0 vidas restara en caso contrario se muere
-    void OnCollisionEnter2D(Collision2D other){
+    void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag == "Dead"){
             if(lifes == 0){
                 gameManagerInstancia.GameOver();
             }
             restLife();
+        }
+        if(other.gameObject.tag == "Booster"){
+            print("si");
+            if(other.gameObject.name == "bota"){
+                //no mucho que explicar ya estas comentados en su respectiva clase xd
+                print("si bota");
+                boosterScriptInstancia.boosterVelocity(9,5.0f,this.transform,1);
+            }
+            if(other.gameObject.name == "cruz"){
+                //lo mismo solo que en este caso this.gameobject ser refiere a este objeto
+                boosterScriptInstancia.boosterInvisible(2.0f,this.gameObject);
+            }
+            if(other.gameObject.name == ""){
+                //no recuerdo este xd pero creo que ya lo hize sin querer
+            }
         }
     }
 }
