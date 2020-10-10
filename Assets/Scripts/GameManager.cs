@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour{
     PlayerController playerControllerInstancia;
     //estas contiene ambos jugadores
     public GameObject playerGirl,playerBoy;
-    
+    //para ingresar al metod de sonido
+    private ManagerAudio managerAudioInstancia;
     //ahora siguen los metodos que nos muestran los menus y todo eso
     //este metodo muestra la pantalla de menu
     public void showMenu(){
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour{
     }
     //esto reinica todo como al principio
     public void playAgain(){
+        managerAudioInstancia.pushButton();
         playerControllerInstancia.again();
     }
     public void getPoints(){
@@ -120,33 +122,40 @@ public class GameManager : MonoBehaviour{
     }
     //este metodo cambia el estado enum del juego a pause
     public void InPause(){
+        managerAudioInstancia.pushButton();
         setGameState(GameState.GamePause);
     }
     //este metodo cambia el estado a ingame
     public void InGame(){
+        managerAudioInstancia.pushButton();
         setGameState(GameState.inGame);
     }
     //este metodo cambia el estado del juego a menu
     public void Menu(){
+        managerAudioInstancia.pushButton();
         setGameState(GameState.menu);
     }
     //este metodo cambia el estado del juego a game over
     public void GameOver(){
+        managerAudioInstancia.pushButton();
         setGameState(GameState.GameOver);
     }
     //metod para seleccionar al chico
     public void chooceGirl(){
+        managerAudioInstancia.pushButton();
         playerGirl.gameObject.SetActive(true);
         playerBoy.gameObject.SetActive(false);
     }
 
     public void chooceBoy(){
+        managerAudioInstancia.pushButton();
         playerBoy.gameObject.SetActive(true);
         playerGirl.gameObject.SetActive(false);
     }
     //metodo para seleccionar a la chica
     //al iniciar el juego es cambiado a en menu
     void Start(){
+        managerAudioInstancia = FindObjectOfType<ManagerAudio>();
         playerControllerInstancia = FindObjectOfType<PlayerController>();
         setGameState(GameState.menu);
         chooceBoy();

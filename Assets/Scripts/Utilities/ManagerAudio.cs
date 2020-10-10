@@ -8,7 +8,7 @@ public class ManagerAudio : MonoBehaviour{
     //variable para poder comrpbar que musica poner
     public string nameBar;
     void Start(){
-
+        menuSong();
     }
     //metod para la musica del menu
     public void menuSong(){
@@ -24,7 +24,7 @@ public class ManagerAudio : MonoBehaviour{
 
     //checamos contra que colliciona
     void OnTriggerEnter2D(Collider2D other){
-        if(other.gameObject.tag == "SoundBar"){
+        if(other.gameObject.tag == "Player"){
             if(other.gameObject.name == "zona2"){
                 zona2Sound.Play();
                 zona1Sound.Stop();

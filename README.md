@@ -1,5 +1,6 @@
 JAM 10/10/2020 ⚰'tradiciones'☠
 Especial agradecimiento y mencion de su profecionalismo en la realizacion de este trabajo trabajo:
+
 🎼Musica y efectos:
 ⭕Axel Garcia Cabello
 ⭕Hector Zuñiga Ruiz
