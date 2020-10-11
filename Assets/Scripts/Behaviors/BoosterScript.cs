@@ -31,4 +31,20 @@ public class BoosterScript : MonoBehaviour{
         yield return new WaitForSeconds(timeBooster);
         player.GetComponent<Collider2D>().enabled = true;
     }
+    //
+    void OnTriggerEnter2D(Collider2D other){
+        if(other.gameObject.tag == "Player"){
+            destroyObject();
+        }       
+    }
+    ///
+    public void destroyObject(){
+        //Destroy(this.gameObject,1f);
+        this.gameObject.SetActive(false);
+        // Destroy(this.gameObject);
+    }
+    //
+    public void restarObject(){
+        this.gameObject.SetActive(true);
+    }
 }

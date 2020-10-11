@@ -5,9 +5,12 @@ using UnityEngine;
 public class ManagerAudio : MonoBehaviour{
     //para los recursos de sonido
     public AudioSource zona1Sound,zona2Sound,zona3Sound,menuSound,gameOverSound,buttonSound;
+    //
+    private GameManager gameManagerInstancia;
     //variable para poder comrpbar que musica poner
     public string nameBar;
     void Start(){
+        gameManagerInstancia = FindObjectOfType<GameManager>();
         this.gameObject.name = nameBar;
         menuSong();
     }
@@ -33,24 +36,25 @@ public class ManagerAudio : MonoBehaviour{
     //checamos contra que colliciona
     void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag == "Player"){
-            print("collider");
+
             if(this.gameObject.name == "zona2"){
-                print("cambio 2");
+
                 zona2Sound.Play();
                 zona1Sound.Stop();
                 zona3Sound.Stop();
                 menuSound.Stop();
             }
             if(this.gameObject.name == "zona3"){
-                print("cambio 3");
+
                 zona3Sound.Play();
                 zona1Sound.Stop();
                 zona2Sound.Stop();
                 menuSound.Stop();
             }
             if(this.gameObject.name == "final"){
+                gameManagerInstancia.EndGame();
                 gameOverSound.Play();
-                zona2Sound.Play();
+                zona2Sound.Stop();
                 zona1Sound.Stop();
                 zona3Sound.Stop();
                 menuSound.Stop();

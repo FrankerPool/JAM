@@ -9,7 +9,7 @@ public enum GameState{
 
 public class GameManager : MonoBehaviour{
     //Necesitaremos los cambas los cuales seran para que se muestren desde el menu hasta la pantalla de gameover
-    public Canvas canvasGameover,canvasMenu,canvasInGame,canvasPause,canvasConfirm;
+    public Canvas canvasGameover,canvasMenu,canvasInGame,canvasPause,canvasConfirm,canvasEnd;
     //estas variables mostraran el tiempo y la cuenta regresiva
     public Text regresiveTxt,cronomeTxt;
     //de igual modo tenemos que inicializar una variable para gestionar los estados de la partida
@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour{
     private ManagerAudio managerAudioInstancia;
     //
     private Obstacule obstaculeInstancia;
+    //
+    private BoosterScript boosterScriptInstancia;
+    //
+    public Image boyLife,girlLife;
     //ahora siguen los metodos que nos muestran los menus y todo eso
     //este metodo muestra la pantalla de menu
     public void showMenu(){
@@ -32,6 +36,7 @@ public class GameManager : MonoBehaviour{
         canvasGameover.enabled = false;
         canvasInGame.enabled = false;
         canvasPause.enabled = false;
+        canvasEnd.enabled = false;
     }
     //este metodo muestra la pantalla de pausa
     public void inPause(){
@@ -39,11 +44,13 @@ public class GameManager : MonoBehaviour{
         canvasGameover.enabled = false;
         canvasMenu.enabled = false;
         canvasInGame.enabled = false;
+        canvasEnd.enabled = false;
     }
     //este metodo muestra la pantalla en juego
     public void inGame(){
         canvasInGame.enabled = true;
         canvasGameover.enabled = false;
+        canvasEnd.enabled = false;
         canvasMenu.enabled = false;
         canvasPause.enabled = false;
         managerAudioInstancia.zone1Soung();
@@ -54,6 +61,7 @@ public class GameManager : MonoBehaviour{
         canvasInGame.enabled = false;
         canvasMenu.enabled = false;
         canvasPause.enabled = false;
+        canvasEnd.enabled = false;
     }
     //este metodo es para mostrar la advertencia de confirmarcion
     public void confirmar(){
@@ -62,10 +70,20 @@ public class GameManager : MonoBehaviour{
         canvasGameover.enabled = false;
         canvasMenu.enabled = false;
         canvasPause.enabled = false;
+        canvasEnd.enabled = false;
     }
     //este metodo se encarga de ocultar el panel de advertencia
     public void hideConfirmar(){
         canvasMenu.enabled = true;
+        canvasConfirm.enabled = false;
+        canvasInGame.enabled = false;
+        canvasGameover.enabled = false;
+        canvasPause.enabled = false;
+        canvasEnd.enabled = false;
+    }
+    public void endGame(){
+        canvasEnd.enabled = true;
+        canvasMenu.enabled = false;
         canvasConfirm.enabled = false;
         canvasInGame.enabled = false;
         canvasGameover.enabled = false;
@@ -76,6 +94,7 @@ public class GameManager : MonoBehaviour{
         managerAudioInstancia.pushButton();
         obstaculeInstancia.restarObject();
         playerControllerInstancia.again();
+        boosterScriptInstancia.restarObject();
     }
     //este metodo muestra el conteo de 3,2,1,go!
     IEnumerator goTimerT(){
@@ -137,6 +156,10 @@ public class GameManager : MonoBehaviour{
     public void GameOver(){
         setGameState(GameState.GameOver);
     }
+    //
+    public void EndGame(){
+        setGameState(GameState.GameEnd);
+    }
     //metod para el sonido del boton
     public void click(){
         managerAudioInstancia.pushButton();
@@ -146,16 +169,21 @@ public class GameManager : MonoBehaviour{
         managerAudioInstancia.pushButton();
         playerGirl.gameObject.SetActive(true);
         playerBoy.gameObject.SetActive(false);
+        girlLife.enabled = true;
+        boyLife.enabled = false;
     }
 
     public void chooceBoy(){
         managerAudioInstancia.pushButton();
         playerBoy.gameObject.SetActive(true);
         playerGirl.gameObject.SetActive(false);
+        boyLife.enabled = true;
+        girlLife.enabled = false;
     }
     //metodo para seleccionar a la chica
     //al iniciar el juego es cambiado a en menu
     void Start(){
+        boosterScriptInstancia = FindObjectOfType<BoosterScript>();
         obstaculeInstancia = FindObjectOfType<Obstacule>();
         managerAudioInstancia = FindObjectOfType<ManagerAudio>();
         playerControllerInstancia = FindObjectOfType<PlayerController>();
@@ -172,6 +200,8 @@ public class GameManager : MonoBehaviour{
             gameOverScreen();
         }else if(newGameState == GameState.GamePause){
             inPause();
+        }else if(newGameState == GameState.GameEnd){
+            endGame();
         }
         this.currentGameState = newGameState;
     }

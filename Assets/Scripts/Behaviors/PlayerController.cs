@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour{
     }
     //este metodo sirve para mostrar las vidas del jugador
     public void showLifes(){
-        lifesTxt.text = lifes.ToString();
+        lifesTxt.text = "x"+lifes.ToString();
     }
     //aun estoy probando esto /*10/10/20*/
     public void movMovil(){
@@ -127,10 +127,8 @@ public class PlayerController : MonoBehaviour{
             restLife();
         }
         if(other.gameObject.tag == "Booster"){
-            print("si");
             if(other.gameObject.name == "bota"){
                 //no mucho que explicar ya estas comentados en su respectiva clase xd
-                print("si bota");
                 boosterScriptInstancia.boosterVelocity(2.0f,3.0f,this.speed);
             }
             if(other.gameObject.name == "cruz"){
