@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ManagerAudio : MonoBehaviour{
     //para los recursos de sonido
@@ -9,7 +10,9 @@ public class ManagerAudio : MonoBehaviour{
     private GameManager gameManagerInstancia;
     //variable para poder comrpbar que musica poner
     public string nameBar;
+    public Image p10,p60,p100;
     void Start(){
+        por10();
         gameManagerInstancia = FindObjectOfType<GameManager>();
         this.gameObject.name = nameBar;
         menuSong();
@@ -33,31 +36,36 @@ public class ManagerAudio : MonoBehaviour{
         buttonSound.Play();
     }
 
+    public void por10(){
+        p10.enabled = true;
+        p60.enabled = false;
+        p100.enabled = false;
+    }
+
+    public void por60(){
+        p10.enabled = false;
+        p60.enabled = true;
+        p100.enabled = false;
+    }
+
+    public void por100(){
+        p10.enabled = false;
+        p60.enabled = false;
+        p100.enabled = true;
+    }
+
     //checamos contra que colliciona
     void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag == "Player"){
 
             if(this.gameObject.name == "zona2"){
-
-                zona2Sound.Play();
-                zona1Sound.Stop();
-                zona3Sound.Stop();
-                menuSound.Stop();
+                por60();
             }
             if(this.gameObject.name == "zona3"){
-
-                zona3Sound.Play();
-                zona1Sound.Stop();
-                zona2Sound.Stop();
-                menuSound.Stop();
             }
             if(this.gameObject.name == "final"){
+                por100();
                 gameManagerInstancia.EndGame();
-                gameOverSound.Play();
-                zona2Sound.Stop();
-                zona1Sound.Stop();
-                zona3Sound.Stop();
-                menuSound.Stop();
             }
         }
     }

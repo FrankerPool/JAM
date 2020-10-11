@@ -9,7 +9,7 @@ public enum GameState{
 
 public class GameManager : MonoBehaviour{
     //Necesitaremos los cambas los cuales seran para que se muestren desde el menu hasta la pantalla de gameover
-    public Canvas canvasGameover,canvasMenu,canvasInGame,canvasPause,canvasConfirm,canvasEnd;
+    public Canvas canvasGameover,canvasMenu,canvasInGame,canvasPause,canvasConfirm,canvasEnd,canvasPlay;
     //estas variables mostraran el tiempo y la cuenta regresiva
     public Text regresiveTxt,cronomeTxt;
     //de igual modo tenemos que inicializar una variable para gestionar los estados de la partida
@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour{
     private BoosterScript boosterScriptInstancia;
     //
     public Image boyLife,girlLife;
+    //
+    public Image winH,winM;
     //ahora siguen los metodos que nos muestran los menus y todo eso
     //este metodo muestra la pantalla de menu
     public void showMenu(){
@@ -91,10 +93,10 @@ public class GameManager : MonoBehaviour{
     }
     //esto reinica todo como al principio
     public void playAgain(){
+        regresiveTxt.enabled = true;
+        this.timeGame = 60;
         playerControllerInstancia.again();
         managerAudioInstancia.pushButton();
-        obstaculeInstancia.restarObject();
-        boosterScriptInstancia.restarObject();
     }
     //este metodo muestra el conteo de 3,2,1,go!
     IEnumerator goTimerT(){
@@ -169,11 +171,15 @@ public class GameManager : MonoBehaviour{
         managerAudioInstancia.pushButton();
         playerGirl.gameObject.SetActive(true);
         playerBoy.gameObject.SetActive(false);
+        winH.enabled = false;
+        winM.enabled = true;
         girlLife.enabled = true;
         boyLife.enabled = false;
     }
 
     public void chooceBoy(){
+        winH.enabled = true;
+        winM.enabled = false;
         managerAudioInstancia.pushButton();
         playerBoy.gameObject.SetActive(true);
         playerGirl.gameObject.SetActive(false);
@@ -193,6 +199,7 @@ public class GameManager : MonoBehaviour{
     //cambia los estados del juego
     public void setGameState(GameState newGameState){
         if(newGameState == GameState.menu){
+            canvasPlay.enabled = true;
             showMenu();
         }else if(newGameState == GameState.inGame){
             inGame();
@@ -205,7 +212,10 @@ public class GameManager : MonoBehaviour{
         }
         this.currentGameState = newGameState;
     }
-
+    public void play(){
+        canvasPlay.enabled = false;
+        managerAudioInstancia.pushButton();
+    }
     // Update is called once per frame
     void Update(){
         showTimeGame();

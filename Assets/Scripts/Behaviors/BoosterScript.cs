@@ -17,9 +17,10 @@ public class BoosterScript : MonoBehaviour{
     }
     //Este metodo se encarga de esperar algunos segundos para poder cambiar la velocidad por ese periodo de tiempo
     IEnumerator boosterTimerVel(float extraSpeed, float timeBooster,float velocityO){
+        playerControllerInst.addPoints();
         playerControllerInst.changeVelocityMore(extraSpeed,velocityO);
         yield return new WaitForSeconds(timeBooster);
-        playerControllerInst.changeVelocityLess(velocityO);
+        playerControllerInst.changeVelocityLess(velocityO,extraSpeed);
     }
     //Este metodo se encarga de ejecutar el metodo verdader el boostertimervel
     public void boosterInvisible(float timeBooster, GameObject player){
@@ -27,6 +28,7 @@ public class BoosterScript : MonoBehaviour{
     }
     //este metodo se encarga de desactivar el collider por un tiempo indefinddo
     IEnumerator boosterTimerInv(float timeBooster, GameObject player){
+        playerControllerInst.addPoints();
         player.GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(timeBooster);
         player.GetComponent<Collider2D>().enabled = true;

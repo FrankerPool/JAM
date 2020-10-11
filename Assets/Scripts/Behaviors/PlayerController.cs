@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour{
     //variable encargada de gestionar la velocidad del jugador
     public float speed = 1.5f;
+    public float maxVelocity;
     //esta variable contiene el numero vidas
     private int lifes = 5;
     //instancia de gamemanager para acceder a los metodos
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviour{
     //Esta variable sirve para acceder al animator del jugador para gersionar las animaciones
     private Animator animator;
     //
+    private float pointsR;
+    //
     //aqui buscamos el objeto de tipo gamemanager para poder inicializarlo
     void Start(){
         boosterScriptInstancia = FindObjectOfType<BoosterScript>();
@@ -29,12 +32,15 @@ public class PlayerController : MonoBehaviour{
     }
     //este metodo se encarga de cuando el jugador muere regresarlo al principio
     public void dead(){
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         gameManagerInstancia.GameOver();
-        this.transform.position = startPosition;
+        this.transform.position = new Vector3(0,-2.5f,0);
     }
     public void again(){
+        this.lifes = 5;
         gameManagerInstancia.Menu();
-        this.transform.position = startPosition;
+        obstaculeInstancia.restarObject();
+        boosterScriptInstancia.restarObject();
     }
     public void restLife(){
         this.lifes -= 1;
@@ -114,17 +120,27 @@ public class PlayerController : MonoBehaviour{
     }
     //mostrar los puntos
     public void getPoints(){
-        pointText.text = getDistanceR().ToString("0");
+        this.pointsR = getDistanceR();
+        pointText.text = pointsR.ToString("0");
+    }
+    //
+    public void addPoints(){
+        this.pointsR = getDistanceR() + 100.0f;
+    }
+    //
+    public void removePoints(){
+        this.pointsR = getDistanceR() - 200.0f;
     }
     //para obtener la distancia rrecorrida
     public float getDistanceR(){
-        float travelerDistance = Vector2.Distance(new Vector2(0,startPosition.y),new Vector2(0,this.transform.position.y));
+        float travelerDistance = Vector2.Distance(new Vector2(0,startPosition.y),new Vector2(0,this.transform.position.y)*10);
         return travelerDistance;
     }
     //en caso de chocar y tener aun mas de 0 vidas restara en caso contrario se muere
     void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag == "Dead"){
             restLife();
+            this.pointsR = this.pointsR - 200;
         }
         if(other.gameObject.tag == "Booster"){
             if(other.gameObject.name == "bota"){
@@ -136,7 +152,7 @@ public class PlayerController : MonoBehaviour{
                 boosterScriptInstancia.boosterInvisible(4.0f,this.gameObject);
             }
             if(other.gameObject.name == "lodo"){
-                obstaculeInstancia.nerfObstacule(1f,3.0f,this.speed);
+                obstaculeInstancia.nerfObstacule(1f,1.0f,this.speed);
             }
             if(other.gameObject.name == "life"){
                 addLife();
@@ -147,8 +163,8 @@ public class PlayerController : MonoBehaviour{
     public void changeVelocityMore(float speed, float extraSpeed){
         this.speed = speed + extraSpeed;
     }
-    public void changeVelocityLess(float speed){
-        this.speed = speed;
+    public void changeVelocityLess(float speed,float extraSeped){
+        this.speed = 2.0f;
     }
 
     public void addLife(){
@@ -156,6 +172,6 @@ public class PlayerController : MonoBehaviour{
     }
 
     public void lessVelocity(float speed, float lessSpeed){
-        this.speed = speed - lessSpeed;
+        this.speed = 2.0f;
     }
 }

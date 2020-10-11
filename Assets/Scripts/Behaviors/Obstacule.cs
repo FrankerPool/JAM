@@ -21,9 +21,10 @@ public class Obstacule : MonoBehaviour{
     }
     //se resta la velocidad indicada a la del jugador para despues de cierto tiempo sumarla
     IEnumerator durationNerfObstacule(float extraSpeed, float timebuf,float velocityO){
+        playerControllerInst.removePoints();
         playerControllerInst.lessVelocity(velocityO,extraSpeed);
         yield return new WaitForSeconds(timebuf);
-        playerControllerInst.changeVelocityLess(velocityO);
+        playerControllerInst.changeVelocityLess(velocityO,extraSpeed);
     }
     //esto sirve para que cuando el jugador choque con algo se destruya este y al mismo tiempo sirve para que no se pase cualquier cosa
     void OnTriggerEnter2D(Collider2D other){
@@ -32,16 +33,19 @@ public class Obstacule : MonoBehaviour{
                 destroyObject();
             }
         }
+        if(other.gameObject.tag == "Player"){
+            destroyObject();
+        }
     }
     //en el segundo caso destruye el objeto al entrar en contacto en el primero al esperar certo tiempo
     public void destroyObject(){
-        //Destroy(this.gameObject,1f);
-        this.gameObject.SetActive(false);
+        playerControllerInst.removePoints();
+        this.GetComponent<SpriteRenderer>().enabled = false;
         // Destroy(this.gameObject);
     }
     //para activar de nuevo todos los objetos
     public void restarObject(){
-        this.gameObject.SetActive(true);
+        this.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     public void ghostBox(float efectTime){
