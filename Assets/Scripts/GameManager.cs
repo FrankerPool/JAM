@@ -91,9 +91,9 @@ public class GameManager : MonoBehaviour{
     }
     //esto reinica todo como al principio
     public void playAgain(){
+        playerControllerInstancia.again();
         managerAudioInstancia.pushButton();
         obstaculeInstancia.restarObject();
-        playerControllerInstancia.again();
         boosterScriptInstancia.restarObject();
     }
     //este metodo muestra el conteo de 3,2,1,go!

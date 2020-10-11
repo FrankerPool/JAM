@@ -138,6 +138,9 @@ public class PlayerController : MonoBehaviour{
             if(other.gameObject.name == "lodo"){
                 obstaculeInstancia.nerfObstacule(1f,3.0f,this.speed);
             }
+            if(other.gameObject.name == "life"){
+                addLife();
+            }
         }
     }
 
@@ -146,6 +149,10 @@ public class PlayerController : MonoBehaviour{
     }
     public void changeVelocityLess(float speed){
         this.speed = speed;
+    }
+
+    public void addLife(){
+        this.lifes++;
     }
 
     public void lessVelocity(float speed, float lessSpeed){
