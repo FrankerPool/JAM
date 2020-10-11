@@ -5,19 +5,25 @@ using UnityEngine;
 public class Obstacule : MonoBehaviour{
     //contiene el nombre del obstaculo
     public string nameObstacule;
+    //
+    private PlayerController playerControllerInst;
     //al iniciar el juego se cambia el nombre del objeto
     void Start(){
+        playerControllerInst = FindObjectOfType<PlayerController>();
         this.gameObject.name = nameObstacule;
+        if(nameObstacule == "invisible"){
+            ghostBox(4.0f);
+        }
     }
     //se inicia la corrutina
-    public void nerfObstacule(int extraSpeed, float timebuf, Transform transformVeloci,int velocityO){
-        StartCoroutine(durationNerfObstacule(extraSpeed,timebuf,transformVeloci,velocityO));
+    public void nerfObstacule(float extraSpeed, float timebuf,float velocityO){
+        StartCoroutine(durationNerfObstacule(extraSpeed,timebuf,velocityO));
     }
     //se resta la velocidad indicada a la del jugador para despues de cierto tiempo sumarla
-    IEnumerator durationNerfObstacule(int extraSpeed, float timebuf, Transform transformVeloci,int velocityO){
-        transformVeloci.Translate (Vector3.up * 1 * (velocityO - extraSpeed) * Time.deltaTime);
+    IEnumerator durationNerfObstacule(float extraSpeed, float timebuf,float velocityO){
+        playerControllerInst.lessVelocity(velocityO,extraSpeed);
         yield return new WaitForSeconds(timebuf);
-        transformVeloci.Translate (Vector3.up * 1 * velocityO * Time.deltaTime);
+        playerControllerInst.changeVelocityLess(velocityO);
     }
     //esto sirve para que cuando el jugador choque con algo se destruya este y al mismo tiempo sirve para que no se pase cualquier cosa
     void OnTriggerEnter2D(Collider2D other){
@@ -53,7 +59,7 @@ public class Obstacule : MonoBehaviour{
     //aqui lo que hago es comprobar que tipo de obstaculo es y en base a eso le defino un comportamiento
     void Update(){
         if(nameObstacule == "invisible"){
-            ghostBox(3.0f);
+            ghostBox(4.0f);
         }
     }
 }

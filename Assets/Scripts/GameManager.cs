@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour{
     //Necesitaremos los cambas los cuales seran para que se muestren desde el menu hasta la pantalla de gameover
     public Canvas canvasGameover,canvasMenu,canvasInGame,canvasPause,canvasConfirm;
     //estas variables mostraran el tiempo y la cuenta regresiva
-    public Text regresiveTxt,cronomeTxt,pointsTxt;
+    public Text regresiveTxt,cronomeTxt;
     //de igual modo tenemos que inicializar una variable para gestionar los estados de la partida
     public GameState currentGameState = GameState.menu;
     //estas se encargan de gestionar el tiempo de las cuentas
@@ -76,9 +76,6 @@ public class GameManager : MonoBehaviour{
         managerAudioInstancia.pushButton();
         obstaculeInstancia.restarObject();
         playerControllerInstancia.again();
-    }
-    public void getPoints(){
-        pointsTxt.text = playerControllerInstancia.getDistanceR().ToString("0");
     }
     //este metodo muestra el conteo de 3,2,1,go!
     IEnumerator goTimerT(){
@@ -181,7 +178,6 @@ public class GameManager : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
-        getPoints();
         showTimeGame();
     }
 }

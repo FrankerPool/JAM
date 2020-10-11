@@ -101,9 +101,9 @@ GameObject:
   - component: {fileID: 380921005091600867}
   - component: {fileID: 380921005091600864}
   - component: {fileID: 380921005091600865}
-  - component: {fileID: 380921005091600799}
   - component: {fileID: 380921005091600866}
   - component: {fileID: 6283809057466269196}
+  - component: {fileID: 5502267967737350375}
   m_Layer: 0
   m_Name: prototipe[Player-Boy]
   m_TagString: Player
@@ -197,20 +197,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &380921005091600799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 380921005091600796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5f7a2f0277256b48b0b46d42e7eabdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1.5
-  lifesTxt: {fileID: 0}
 --- !u!95 &380921005091600866
 Animator:
   serializedVersion: 3
@@ -321,3 +307,18 @@ PolygonCollider2D:
       - {x: 0.028, y: -0.808}
       - {x: 0.072000004, y: -0.744}
       - {x: 0.060000002, y: -0.652}
+--- !u!114 &5502267967737350375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380921005091600796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f7a2f0277256b48b0b46d42e7eabdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1.5
+  lifesTxt: {fileID: 0}
+  pointText: {fileID: 0}

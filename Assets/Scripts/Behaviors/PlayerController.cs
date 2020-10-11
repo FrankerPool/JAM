@@ -5,23 +5,27 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour{
     //variable encargada de gestionar la velocidad del jugador
-    public float speed = 0.1f;
+    public float speed = 1.5f;
     //esta variable contiene el numero vidas
     private int lifes = 5;
     //instancia de gamemanager para acceder a los metodos
     private GameManager gameManagerInstancia;
     //texto que mostrara las vidas del jugador
-    public Text lifesTxt;
+    public Text lifesTxt,pointText;
     //Utilizamos un vector3 para obetener la posicion inicial
     private Vector3 startPosition;
     //esta instancia sirve para acceder a los metodos de los boosters
     private BoosterScript boosterScriptInstancia;
+    //
+    private Obstacule obstaculeInstancia;
     //Esta variable sirve para acceder al animator del jugador para gersionar las animaciones
     private Animator animator;
+    //
     //aqui buscamos el objeto de tipo gamemanager para poder inicializarlo
     void Start(){
         boosterScriptInstancia = FindObjectOfType<BoosterScript>();
         gameManagerInstancia = FindObjectOfType<GameManager>();
+        obstaculeInstancia = FindObjectOfType<Obstacule>();
     }
     //este metodo se encarga de cuando el jugador muere regresarlo al principio
     public void dead(){
@@ -44,7 +48,6 @@ public class PlayerController : MonoBehaviour{
     //metod que gestiona el movimiento del jugador 10/09/20 aun este se mueve cuando esta en pausa se tiene que revisar a mas tardar para ma;ana si no seguir adelante si toma mas de un dia y dejar para luego
     public void movPc(){
         if(gameManagerInstancia.currentGameState == GameState.inGame){
-            print("en juego");
             GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x,speed);
 //            GetComponent<Rigidbody2D>().velocity = Vector2.up * speed;
             // transform.Translate (Vector3.up *1 * speed * Time.deltaTime);
@@ -75,7 +78,6 @@ public class PlayerController : MonoBehaviour{
             GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x,0);
         }
     }
-
     //este metodo sirve para mostrar las vidas del jugador
     public void showLifes(){
         lifesTxt.text = lifes.ToString();
@@ -108,6 +110,11 @@ public class PlayerController : MonoBehaviour{
         comprobateLifes();
         showLifes();
         movPc();
+        getPoints();
+    }
+    //mostrar los puntos
+    public void getPoints(){
+        pointText.text = getDistanceR().ToString("0");
     }
     //para obtener la distancia rrecorrida
     public float getDistanceR(){
@@ -124,15 +131,26 @@ public class PlayerController : MonoBehaviour{
             if(other.gameObject.name == "bota"){
                 //no mucho que explicar ya estas comentados en su respectiva clase xd
                 print("si bota");
-                boosterScriptInstancia.boosterVelocity(2.0f,5.0f,this.GetComponent<Rigidbody2D>(),speed);
+                boosterScriptInstancia.boosterVelocity(2.0f,3.0f,this.speed);
             }
             if(other.gameObject.name == "cruz"){
                 //lo mismo solo que en este caso this.gameobject ser refiere a este objeto
                 boosterScriptInstancia.boosterInvisible(4.0f,this.gameObject);
             }
-            if(other.gameObject.name == ""){
-                //no recuerdo este xd pero creo que ya lo hize sin querer
+            if(other.gameObject.name == "lodo"){
+                obstaculeInstancia.nerfObstacule(1f,3.0f,this.speed);
             }
         }
+    }
+
+    public void changeVelocityMore(float speed, float extraSpeed){
+        this.speed = speed + extraSpeed;
+    }
+    public void changeVelocityLess(float speed){
+        this.speed = speed;
+    }
+
+    public void lessVelocity(float speed, float lessSpeed){
+        this.speed = speed - lessSpeed;
     }
 }
